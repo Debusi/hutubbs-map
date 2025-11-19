@@ -43,5 +43,5 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: .
+          local-dir: ./        # ← 末尾に / を付ける
           server-dir: /public_html/
