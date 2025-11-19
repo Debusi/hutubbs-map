@@ -2,11 +2,11 @@ name: Update boards.json
 
 on:
   schedule:
-    - cron: "*/10 * * * *"   # 10分ごとに実行
+    - cron: "*/3 * * * *"   # 3分ごとに実行
   workflow_dispatch:          # 手動実行も可能
 
 permissions:
-  contents: write   # ← push 権限を付与
+  contents: write   # push 権限を付与
 
 jobs:
   update:
@@ -36,3 +36,12 @@ jobs:
           git add boards.json || true
           git commit -m "Update boards.json" || echo "No changes to commit"
           git push
+
+      - name: Upload boards.json to FC2
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.0
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: .
+          server-dir: /public_html/
